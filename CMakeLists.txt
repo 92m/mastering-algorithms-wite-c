@@ -22,7 +22,7 @@
  ############################################################
  
  # Generate the static library from the library sources
- add_library( utils_library STATIC src/utils.c )
+ add_library( utils_lib STATIC src/utils.c )
 
  target_include_directories( utils_lib PUBLIC ${PROJECT_SOURCE_DIR}/include )
 
@@ -34,4 +34,4 @@
  add_executable( MAlgorithms main.c )
 
  # link the new swap_01 target with the swap_lib target
- target_link_libraries( MAlgorithms utils_liby )
+ target_link_libraries( MAlgorithms utils_lib )

@@ -25,7 +25,6 @@ int main(int argc, char** argv) {
   int sum = 0;
   int i = 1;
 
-  // calculate sum from 1 to 100
   while (i <= N)
   {
     sum = sum + i;
@@ -35,4 +34,4 @@ int main(int argc, char** argv) {
   printf("sum = %d;\n", sum); 
   printf("The program is over. \n"); 
   return 0;
-};
+}
