@@ -2,7 +2,7 @@
  cmake_minimum_required(VERSION 3.0)
 
  # project name  
- project(SWAP_LIBRARY)
+ project(MAlgorithms)
 
  # add compile options
  add_compile_options("-Wall")
@@ -31,7 +31,7 @@
  ############################################################
 
  # Add an executable with the above sources
- add_executable( MAlgorithms main.c )
+ add_executable( MAlgorithms main.c src/utils)
 
  # link the new swap_01 target with the swap_lib target
  target_link_libraries( MAlgorithms utils_lib )
