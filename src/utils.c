@@ -37,3 +37,19 @@ int fact(int n) {
   else 
     return n * fact(n - 1);
 }
+
+int facttail(int n, int a) {
+  /* Compute a facttail in a tail-recursive manner */
+  if(n < 0)
+    return 0;
+  else if(n == 0) 
+    return 1;
+  else if(n == 1) 
+    return a;
+  else if (n > 1) 
+    return facttail(n-1, n*a);
+}
+
+int list_rm_next(List *list, ListElmt *element, void **data) {
+  return 0;
+}
