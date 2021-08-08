@@ -1,5 +1,5 @@
-#include "utils.h"
 #include <stdio.h>
+#include "utils.h"
 
 static int main_ret = 0;
 static int test_count = 0;
@@ -28,9 +28,17 @@ static void test_facttail() {
   EXPECT_EQ_INT(6, facttail(3, 1));
 }
 
+
+static void test_single_list_init() {
+  #if 0
+      list_init(List* singleList, NULL);
+  #endif
+} 
+
 static void test_parse() {
   test_fact();
   test_facttail();
+  test_single_list_init();
 } 
 
 int main(int argc, char** argv) {

@@ -1,12 +1,10 @@
 #ifndef MALGORITHMS_H__
 #define MALGORITHMS_H__
 
-typedef struct ListElmt_ {
- void *data;
- struct ListElmt_ *next;
-} ListElmt;
-
-typedef ListElmt List[];
+/*
+* 引入单链表头部文件
+*/
+#include "singleList.h"
 
 /* 全局状态变量 */  
 enum {
@@ -23,12 +21,7 @@ int facttail(int n, int a);
 
 void swap(int *x, int *y);
 
-void swap2(void *x, void *y, int size);
-
-/* 移除 第五讲实现 */
-int list_rm_next(List *list, ListElmt *element, void **data);
-
-/*  */
+int swap2(void *x, void *y, int size);
 
 
 #endif /* MALGORITHMS_H__ */

@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "singleList.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -15,7 +16,7 @@ void swap(int *x, int *y) {
   return;
 }
 
-void swap2(void *x, void *y, int size) {
+int swap2(void *x, void *y, int size) {
   void *tmp;
   if((tmp = malloc(size)) == NULL) 
     return -1;
@@ -48,8 +49,4 @@ int facttail(int n, int a) {
     return a;
   else if (n > 1) 
     return facttail(n-1, n*a);
-}
-
-int list_rm_next(List *list, ListElmt *element, void **data) {
-  return 0;
 }
