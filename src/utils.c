@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "singleList.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 int g(int **iptr) {

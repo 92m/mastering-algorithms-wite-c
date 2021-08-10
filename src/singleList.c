@@ -7,7 +7,7 @@
 * 函数定义：初始化链表 
 * 复杂度： O(1)
 */
-void list_init(List *list, void (*destroy) (void *data)) {
+int list_init(List *list, void (*destroy) (void *data)) {
   /* Initialize the list. */
 
   list->size = 0;
@@ -15,14 +15,14 @@ void list_init(List *list, void (*destroy) (void *data)) {
   list->head = NULL;
   list->tail = NULL;
 
-  return;
+  return 0;
 }
 
 /* 
 * 函数定义：销毁指定链表 
 * 复杂度： O(n)
 */
-void list_destroy(List *list) {
+int list_destroy(List *list) {
   void *data;
 
   /* Remove each element. */
@@ -34,7 +34,7 @@ void list_destroy(List *list) {
   }
   /* No opertions are allowed now, but not clear the strcture  as a precaution. */
   memset(list, 0, sizeof(List));
-  return;
+  return 0;
 }
 
 /*  
@@ -45,12 +45,12 @@ int list_ins_next(List *list, ListElmt *element, const void *data) {
   ListElmt *new_element;
 
   /* Allocate stotage for this element. */
-  if((new_element = (ListElmt *)mallco(sizeof(ListElmt))) == NULL ) {
+  if((new_element = (ListElmt *)malloc(sizeof(ListElmt))) == NULL ) {
     return -1;
   }
 
   /* Insert the element into the list. */
-  new_element->data = (* void)data;
+  new_element->data = (void *)data;
   if(element == NULL) {
     
     /* Handle insertion at the head of the list */
@@ -71,7 +71,6 @@ int list_ins_next(List *list, ListElmt *element, const void *data) {
   /* Ajust the size of the list to accout for insertion element. */
   list->size++;
   return 0;
-  }
 }
 
 /* 
@@ -91,7 +90,7 @@ int list_rem_next(List *list, ListElmt *element, void **data) {
     old_element = list->head;
     list->head = list->head->next;
     if (list_size(list) == 1) {
-      list-tail = NULL;
+      list->tail = NULL;
     }
   } else {
     *data = element->next->data;
@@ -99,7 +98,7 @@ int list_rem_next(List *list, ListElmt *element, void **data) {
     element->next = element->next->next;
 
     if(element->next == NULL)
-      list->tail = element
+      list->tail = element;
   }
   /* Free the strorage allowated by the abstract datatype */
   free(old_element);

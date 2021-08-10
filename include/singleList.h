@@ -27,10 +27,10 @@ typedef struct List_ {
 */
 
 /* 初始化链表 */
-void list_init(List *list, void (*destroy) (void *data));
+int list_init(List* list, void (*destroy)(void *data));
 
 /* 销毁指定链表 */
-void list_destroy(List *list);
+int list_destroy(List *list);
 
 /* 指定节点插入新数据 */
 int list_ins_next(List *list, ListElmt *element, const void *data);

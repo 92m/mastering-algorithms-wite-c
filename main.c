@@ -30,8 +30,9 @@ static void test_facttail() {
 
 
 static void test_single_list_init() {
-  #if 0
-      list_init(List* singleList, NULL);
+  #if 1
+    List l;
+    EXPECT_EQ_INT(list_init(&l, NULL), 0);
   #endif
 } 
 
