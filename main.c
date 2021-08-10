@@ -33,13 +33,24 @@ static void test_single_list_init() {
   #if 1
     List l;
     EXPECT_EQ_INT(list_init(&l, NULL), 0);
+    EXPECT_EQ_INT(list_destroy(&l), 0);
   #endif
 } 
+
+static void test_single_list_ins_next() {
+  #if 1
+    List l;
+    const int C = 100;
+    EXPECT_EQ_INT(list_ins_next(&l, NULL, &C), 0);
+    EXPECT_EQ_INT(list_destroy(&l), 0);
+  #endif
+}
 
 static void test_parse() {
   test_fact();
   test_facttail();
   test_single_list_init();
+  test_single_list_ins_next();
 } 
 
 int main(int argc, char** argv) {
