@@ -4,7 +4,7 @@
 /*
 * 引入单链表头部文件
 */
-#include "singleList.h"
+#include "list.h"
 
 /* 全局状态变量 */  
 enum {

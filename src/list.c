@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "singleList.h"
+#include "list.h"
 
 /* 
 * 函数定义：初始化链表 
