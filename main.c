@@ -39,10 +39,15 @@ static void test_single_list_init() {
 
 static void test_single_list_ins_next() {
   #if 1
-    List l;
-    const int C = 100;
-    EXPECT_EQ_INT(list_ins_next(&l, NULL, &C), 0);
-    EXPECT_EQ_INT(list_destroy(&l), 0);
+    List l2, *l2p;
+    int CINT = 100;
+    char *CSR = "dsadadasdada\0";
+    l2p = &l2;
+    EXPECT_EQ_INT(list_init(l2p, NULL), 0);
+    EXPECT_EQ_INT(list_ins_next(l2p, NULL, &CINT), 0);
+    EXPECT_EQ_INT(list_ins_next(l2p, NULL, &CSR), 0);
+    EXPECT_EQ_INT((list_size(l2p)), 2);
+    EXPECT_EQ_INT(list_destroy(l2p), 0);
   #endif
 }
 
