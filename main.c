@@ -51,11 +51,18 @@ static void test_single_list_ins_next() {
   #endif
 }
 
+static void test_duble_list_ins_next() {
+  Dlist dl, *dlp;
+  EXPECT_EQ_INT(dlist_init(&dl, NULL), 0);
+  EXPECT_EQ_INT(dlist_destroy(&dl), 1);
+}
+
 static void test_parse() {
   test_fact();
   test_facttail();
   test_single_list_init();
   test_single_list_ins_next();
+  test_duble_list_ins_next();
 } 
 
 int main(int argc, char** argv) {

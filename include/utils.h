@@ -6,6 +6,11 @@
 */
 #include "list.h"
 
+/*
+* 引入双链表头部文件
+*/
+#include "dlist.h"
+
 /* 全局状态变量 */  
 enum {
   COMPUTE_OK = 0,
