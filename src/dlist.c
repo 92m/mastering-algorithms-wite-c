@@ -43,19 +43,24 @@ int dlist_remove(Dlist *list, DlistElmt *element, const void **data) {
 /* 向双向链表中的指定元素后插入新元素 */
 int dlist_ins_next(Dlist *list, DlistElmt *element, const void *data) {
   DlistElmt *new_element;
-
   /* 为该元素分配存储空间 */
-  if(new_element = (DlistElmt *)malloc(sizeof(DlistElmt)) == NULL) {
+  if((new_element = (DlistElmt *)malloc(sizeof(DlistElmt))) == NULL) {
     return -1;
   }
 
   new_element->data = (void *)&data;
+
   if(element == NULL) {
     if(dlist_size(list) == 0) 
       list->head = new_element;
-    
     list->tail = new_element;
+  } else {
+    if (element->next == NULL)
+      element->next = new_element;
+    new_element->next = element->next;
+
   }
+
   list->size++;
   return 1;
 }

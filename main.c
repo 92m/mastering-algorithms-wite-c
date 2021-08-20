@@ -53,8 +53,11 @@ static void test_single_list_ins_next() {
 
 static void test_duble_list_ins_next() {
   Dlist dl;
+  char *CSR = "dsadadasdada\0";
   EXPECT_EQ_INT(dlist_init(&dl, NULL), 0);
-  EXPECT_EQ_INT(dlist_remove(&dl, NULL, NULL), -1);
+  EXPECT_EQ_INT(dlist_ins_next(&dl, NULL, &CSR), 1);
+  EXPECT_EQ_INT(dlist_size(&dl), 1);
+  EXPECT_EQ_INT(dlist_remove(&dl, NULL, NULL), 1);
   EXPECT_EQ_INT(dlist_destroy(&dl), 1);
 }
 
