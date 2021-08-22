@@ -7,8 +7,8 @@
 typedef struct DlistElmt_ 
 {
     void *data;
-    struct DlistElmt *prev;
-    struct DlistElmt *next;
+    struct DlistElmt_ *prev;
+    struct DlistElmt_ *next;
 } DlistElmt;
 
 /* Define a structure for doubly-linked lists. */
@@ -35,7 +35,7 @@ int dlist_ins_next(Dlist *list, DlistElmt *element, const void *data);
 int dlist_ins_prev(Dlist *list, DlistElmt *element, const void *data);
 
 /* 移除双向链表的指定元素 */
-int dlist_remove(Dlist *list, DlistElmt *element, const void **data);
+int dlist_remove(Dlist *list, DlistElmt *element, void **data);
 
 /* 返回链表的长度个数 */
 #define dlist_size(list) ((list)->size)

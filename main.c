@@ -17,7 +17,8 @@ static int test_pass = 0;
   } while(0)
 
   
-
+#define EXPECT_EQ_STRING(expect, actual, alength) \
+    EXPECT_EQ_BASE(sizeof(expect) - 1 == alength && memcmp(expect, actual, alength) == 0, expect, actual, "%s")
 #define EXPECT_EQ_INT(expect, actual) EXPECT_EQ_BASE((expect) == (actual), expect, actual, "%d")
 
 static void test_fact() {
@@ -53,11 +54,17 @@ static void test_single_list_ins_next() {
 
 static void test_duble_list_ins_next() {
   Dlist dl;
+  struct Dlist *struct_pointer;
   char *CSR = "dsadadasdada\0";
+  struct_pointer = &dl;
   EXPECT_EQ_INT(dlist_init(&dl, NULL), 0);
-  EXPECT_EQ_INT(dlist_ins_next(&dl, NULL, &CSR), 1);
+  EXPECT_EQ_INT(dlist_remove(&dl, NULL, NULL), -1);
+  EXPECT_EQ_INT(dlist_ins_next(&dl, NULL, &CSR), 0);
   EXPECT_EQ_INT(dlist_size(&dl), 1);
-  EXPECT_EQ_INT(dlist_remove(&dl, NULL, NULL), 1);
+  printf( "Book title : %d\n", (struct_pointer->head->data));
+  /*
+   * EXPECT_EQ_STRING((dl.head.data), "dsadadasdada\0", sizeof(CSR));
+   */ 
   EXPECT_EQ_INT(dlist_destroy(&dl), 1);
 }
 

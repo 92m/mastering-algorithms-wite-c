@@ -31,36 +31,59 @@ int dlist_destroy(Dlist *list) {
 }
 
 /* 移除双向链表的指定元素 */
-int dlist_remove(Dlist *list, DlistElmt *element, const void **data) {
-  DlistElmt *old_element;
-  if(dlist_size(list) == 0) {
+int dlist_remove(Dlist *list, DlistElmt *element, void **data) {
+
+  /* DO not allow a NULL element or removal from an empty list */
+  if(element == NULL && dlist_size(list) == 0) {
     return -1;
   }
 
+
+  
   return 1;
 }
 
 /* 向双向链表中的指定元素后插入新元素 */
 int dlist_ins_next(Dlist *list, DlistElmt *element, const void *data) {
   DlistElmt *new_element;
-  /* 为该元素分配存储空间 */
-  if((new_element = (DlistElmt *)malloc(sizeof(DlistElmt))) == NULL) {
-    return -1;
-  }
 
+  /* 
+   * 除非列表为空，否则不允许使用 NULL 元素
+   */
+  if(element == NULL && dlist_size(list) !=0) 
+    return -1; 
+
+  /* 为该元素分配存储空间 */
+  if((new_element = (DlistElmt *)malloc(sizeof(DlistElmt))) == NULL) 
+    return -1;
+
+  /* 将新元素插入列表. */
   new_element->data = (void *)&data;
 
-  if(element == NULL) {
-    if(dlist_size(list) == 0) 
-      list->head = new_element;
+  /*
+  *  如插入空链表，元素可能指向任何位置为了避免混淆此时element设置为NULL 
+  */
+  if (dlist_size(list) == 0)
+  {
+    /* 列表为空时，把元素插入列表插入. */
+    list->head = new_element;
+    list->head->prev = NULL;
+    list->head->next = NULL;
     list->tail = new_element;
-  } else {
-    if (element->next == NULL)
-      element->next = new_element;
-    new_element->next = element->next;
-
   }
+  else {  
+    /* 列表不为空时，把元素插入列表插入. */
+    new_element->next = element->next;
+    new_element->prev = element;
 
-  list->size++;
-  return 1;
+    if(element->next == NULL) {
+      list->tail = new_element;
+    }
+    else {
+      element->next->prev = new_element;
+    }
+    element->next = new_element;
+  }
+  list->size++; 
+  return 0;
 }
