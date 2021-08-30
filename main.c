@@ -53,15 +53,14 @@ static void test_single_list_ins_next() {
 }
 
 static void test_duble_list_ins_next() {
-  Dlist dl;
-  struct Dlist *struct_pointer;
+  Dlist dl, *dl_pointer;
   char *CSR = "dsadadasdada\0";
-  struct_pointer = &dl;
+  dl_pointer = &dl;
   EXPECT_EQ_INT(dlist_init(&dl, NULL), 0);
   EXPECT_EQ_INT(dlist_remove(&dl, NULL, NULL), -1);
-  EXPECT_EQ_INT(dlist_ins_next(&dl, NULL, &CSR), 0);
+  EXPECT_EQ_INT(dlist_ins_next(&dl, NULL, CSR), 0);
   EXPECT_EQ_INT(dlist_size(&dl), 1);
-  printf( "Book title : %d\n", (struct_pointer->head->data));
+  printf( "struct_pointer : %s\n", (char *)&(dl_pointer->head->data));
   /*
    * EXPECT_EQ_STRING((dl.head.data), "dsadadasdada\0", sizeof(CSR));
    */ 
