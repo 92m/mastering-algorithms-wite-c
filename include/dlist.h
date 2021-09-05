@@ -18,7 +18,7 @@ typedef struct Dlist_ {
     void (*destroy)(void *data);   
     DlistElmt *head;
     DlistElmt *tail;
-}Dlist;
+} Dlist;
 
 /* Public Interface */
 

@@ -1,5 +1,10 @@
+#ifdef _WINDOWS
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+#endif
 #include <stdio.h>
 #include "utils.h"
+#include <string.h>
 
 static int main_ret = 0;
 static int test_count = 0;
@@ -52,16 +57,25 @@ static void test_single_list_ins_next() {
   #endif
 }
 
-static void test_duble_list_ins_next() {
-  Dlist dl, *dl_pointer;
-  char *CSR = "dsadadasdada\0";
-  dl_pointer = &dl;
+static void test_duble_list() {
+  Dlist dl;
+  char *CSR = "dsad";
+  int *inum = (int *)520;
+  size_t len = 7;
+  void *data;
   EXPECT_EQ_INT(dlist_init(&dl, NULL), 0);
-  EXPECT_EQ_INT(dlist_remove(&dl, NULL, NULL), -1);
   EXPECT_EQ_INT(dlist_ins_next(&dl, NULL, CSR), 0);
+  EXPECT_EQ_INT(dlist_ins_next(&dl, (dlist_tail(&dl)), inum), 0);
+  EXPECT_EQ_INT(dlist_size(&dl), 2);
+  EXPECT_EQ_STRING((char *)dlist_data(dl.head), "dsad", len);
+  EXPECT_EQ_INT((int *)dlist_data(dl.tail), 520);
+  EXPECT_EQ_INT(dlist_remove(&dl, dlist_head(&dl), (void **)&data), 0);
   EXPECT_EQ_INT(dlist_size(&dl), 1);
-  printf( "struct_pointer : %s\n", (char *)&(dl_pointer->head->data));
-  /*
+  
+  /* 
+   * printf( "p dlist_head : %p\n", dlist_head(&dl)); 
+   * printf( "CSR : %s\n", CSR);
+   * printf( "p dlist_data : %s\n", (char *)dlist_data(dl.head)); 
    * EXPECT_EQ_STRING((dl.head.data), "dsadadasdada\0", sizeof(CSR));
    */ 
   EXPECT_EQ_INT(dlist_destroy(&dl), 1);
