@@ -86,7 +86,7 @@ static void test_parse() {
   test_facttail();
   test_single_list_init();
   test_single_list_ins_next();
-  test_duble_list_ins_next();
+  test_duble_list();
 } 
 
 int main(int argc, char** argv) {
