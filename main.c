@@ -27,16 +27,20 @@ static int test_pass = 0;
 #define EXPECT_EQ_INT(expect, actual) EXPECT_EQ_BASE((expect) == (actual), expect, actual, "%d")
 
 static void test_fact() {
+  #if 0
   EXPECT_EQ_INT(6, fact(3));
+  #endif
 }
 
 static void test_facttail() {
+  #if 0
   EXPECT_EQ_INT(6, facttail(3, 1));
+  #endif
 }
 
 
 static void test_single_list() {
-  #if 1
+  #if 0
     List l2, *l2p;
     int CINT = 100;
     char *CSR = "dsadadasdada\0";
