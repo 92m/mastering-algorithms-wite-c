@@ -78,11 +78,17 @@ static void test_duble_list() {
    */
 }
 
+static void test_clist_list() {
+  Clist cl;
+  EXPECT_EQ_INT(clist_init(&cl, NULL), 0);
+}
+
 static void test_parse() {
   test_fact();
   test_facttail();
   test_single_list();
   test_duble_list();
+  test_clist_list();
 } 
 
 int main(int argc, char** argv) {

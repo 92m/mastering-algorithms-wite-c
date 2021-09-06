@@ -11,6 +11,12 @@
 */
 #include "dlist.h"
 
+/*
+* 引入循环链表头部文件
+*/
+#include "clist.h"
+
+
 /* 全局状态变量 */  
 enum {
   COMPUTE_OK = 0,

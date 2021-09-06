@@ -116,7 +116,7 @@ int dlist_ins_next(Dlist *list, DlistElmt *element, const void *data) {
   return 0;
 }
 
-/* 向双向链表中的指定元素前插入新元素 */
+/* 向双 向链表中的指定元素前插入新元素 */
 int dlist_ins_prev(Dlist *list, DlistElmt *element, const void *data) {
   DlistElmt *new_element;
 
@@ -149,11 +149,13 @@ int dlist_ins_prev(Dlist *list, DlistElmt *element, const void *data) {
     /* 列表不为空时，把元素插入列表插入. */
     new_element->prev = element->prev;
     new_element->next = element;
-    element->prev = new_element;
-    
-    if(new_element->prev == dlist_tail(list)) {
+
+    if (element->prev == NULL)
       list->head = new_element;
-    }
+    else
+      element->prev->next = new_element;
+      
+    element->prev = new_element;
   }
   list->size++;
   return 0;
