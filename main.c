@@ -35,15 +35,7 @@ static void test_facttail() {
 }
 
 
-static void test_single_list_init() {
-  #if 1
-    List l;
-    EXPECT_EQ_INT(list_init(&l, NULL), 0);
-    EXPECT_EQ_INT(list_destroy(&l), 0);
-  #endif
-} 
-
-static void test_single_list_ins_next() {
+static void test_single_list() {
   #if 1
     List l2, *l2p;
     int CINT = 100;
@@ -60,32 +52,32 @@ static void test_single_list_ins_next() {
 static void test_duble_list() {
   Dlist dl;
   char *CSR = "dsad";
-  int *inum = (int *)520;
+  int *inum = (int *)520, *inum2 = (int *)510;
   size_t len = 7;
   void *data;
   EXPECT_EQ_INT(dlist_init(&dl, NULL), 0);
   EXPECT_EQ_INT(dlist_ins_next(&dl, NULL, CSR), 0);
   EXPECT_EQ_INT(dlist_ins_next(&dl, (dlist_tail(&dl)), inum), 0);
-  EXPECT_EQ_INT(dlist_size(&dl), 2);
+  EXPECT_EQ_INT(dlist_ins_prev(&dl, (dlist_tail(&dl)), inum2), 0);
+  EXPECT_EQ_INT(dlist_size(&dl), 3);
   EXPECT_EQ_STRING((char *)dlist_data(dl.head), "dsad", len);
   EXPECT_EQ_INT((int *)dlist_data(dl.tail), 520);
+  EXPECT_EQ_INT(dlist_remove(&dl, dlist_tail(&dl), (void **)&data), 0);
   EXPECT_EQ_INT(dlist_remove(&dl, dlist_head(&dl), (void **)&data), 0);
   EXPECT_EQ_INT(dlist_size(&dl), 1);
-  
+  EXPECT_EQ_INT(dlist_destroy(&dl), 1);
   /* 
    * printf( "p dlist_head : %p\n", dlist_head(&dl)); 
    * printf( "CSR : %s\n", CSR);
    * printf( "p dlist_data : %s\n", (char *)dlist_data(dl.head)); 
-   * EXPECT_EQ_STRING((dl.head.data), "dsadadasdada\0", sizeof(CSR));
-   */ 
-  EXPECT_EQ_INT(dlist_destroy(&dl), 1);
+   * printf( "p dlist_data : %d\n", (int *)dlist_data(dl.tail)); 
+   */
 }
 
 static void test_parse() {
   test_fact();
   test_facttail();
-  test_single_list_init();
-  test_single_list_ins_next();
+  test_single_list();
   test_duble_list();
 } 
 

@@ -21,13 +21,15 @@ int dlist_init(Dlist *list, void (*destroy)(void *data)) {
 * 复杂度：O(1)
 */
 int dlist_destroy(Dlist *list) {
-  /* void *data;
+  void *data;
    
-  while (dlist_sise(list) > 0)
+  while (dlist_size(list) > 0)
   {
-    if(dlist_remove(list, dlist_tail(list), )) 
+    if(dlist_remove(list, dlist_tail(list), (void **)&data) == 0 && list->destroy != NULL) {
+      list->destroy(data);
+    } 
   }
-  */
+  memset(list, 0, sizeof(Dlist));
   return 1;
 }
 
@@ -96,7 +98,8 @@ int dlist_ins_next(Dlist *list, DlistElmt *element, const void *data) {
     list->head->next = NULL;
     list->tail = new_element;
   }
-  else {  
+  else 
+  {  
     /* 列表不为空时，把元素插入列表插入. */
     new_element->next = element->next;
     new_element->prev = element;
@@ -110,5 +113,48 @@ int dlist_ins_next(Dlist *list, DlistElmt *element, const void *data) {
     element->next = new_element;
   }
   list->size++; 
+  return 0;
+}
+
+/* 向双向链表中的指定元素前插入新元素 */
+int dlist_ins_prev(Dlist *list, DlistElmt *element, const void *data) {
+  DlistElmt *new_element;
+
+  /* 
+   * 除非列表为空，否则不允许使用 NULL 元素
+   */
+  if(element == NULL && dlist_size(list) !=0) 
+    return -1; 
+
+  /* 为该元素分配存储空间 */
+  if((new_element = (DlistElmt *)malloc(sizeof(DlistElmt))) == NULL) 
+    return -1;
+
+  /* 将新元素插入列表. */
+  new_element->data = (void *)data;
+  
+  /*
+  *  如插入空链表，元素可能指向任何位置为了避免混淆此时element设置为NULL 
+  */
+  if(dlist_size(list) == 0) 
+  {
+    /* 列表为空时，把元素插入列表插入. */
+    list->head = new_element;
+    list->head->prev = NULL;
+    list->head->next = NULL;
+    list->tail = new_element;
+  } 
+  else 
+  {
+    /* 列表不为空时，把元素插入列表插入. */
+    new_element->prev = element->prev;
+    new_element->next = element;
+    element->prev = new_element;
+    
+    if(new_element->prev == dlist_tail(list)) {
+      list->head = new_element;
+    }
+  }
+  list->size++;
   return 0;
 }
