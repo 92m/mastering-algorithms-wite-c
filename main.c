@@ -80,7 +80,18 @@ static void test_duble_list() {
 
 static void test_clist_list() {
   Clist cl;
+  char *CSR = "IIII";
+  size_t len = 7;
+  int *inum = (int *)520;
   EXPECT_EQ_INT(clist_init(&cl, NULL), 0);
+  EXPECT_EQ_INT(clist_ins_next(&cl, NULL, inum), 0);
+  EXPECT_EQ_INT(clist_data(clist_head(&cl)), 520);
+  EXPECT_EQ_INT(clist_ins_next(&cl, clist_head(&cl), CSR), 0);
+  EXPECT_EQ_STRING((char *)clist_data(cl.head->next), "IIII", len);
+  EXPECT_EQ_INT(clist_size(&cl), 2);
+  /*
+  * printf("(char *)clist_data(clist_head(&cl)): %s\n",cl.head->next->data);
+  */
 }
 
 static void test_parse() {

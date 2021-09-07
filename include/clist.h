@@ -25,4 +25,18 @@ typedef struct Clist_
 /* Public Interface */
 int clist_init(Clist *list, void (*destroy)(void *data));
 
+int clist_destroy(Clist *list);
+
+int clist_ins_next(Clist *list, ClistElmt *element, void *data);
+
+int clist_rem_next(Clist *list, ClistElmt *element, void **data);
+
+#define clist_size(list) ((list)->size)
+
+#define clist_head(list) ((list)->head)
+
+#define clist_data(element) ((element)->data)
+
+#define clist_next(list) ((list)->next)
+
 #endif
