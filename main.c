@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "utils.h"
 #include <string.h>
+#include "./include/page.h"
 
 static int main_ret = 0;
 static int test_count = 0;
