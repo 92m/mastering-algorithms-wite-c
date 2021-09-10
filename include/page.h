@@ -6,11 +6,11 @@
 typedef struct Page_
 {
   int number;
-  int refefence;
+  int reference;
 }Page;
 
 /* Publice Interface */
 
 int replace_page(ClistElmt **current);
 
-#endif
+#endif 

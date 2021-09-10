@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include "utils.h"
 #include <string.h>
-#include "./include/page.h"
 
 static int main_ret = 0;
 static int test_count = 0;
@@ -94,6 +93,22 @@ static void test_clist_list() {
   * printf("(char *)clist_data(clist_head(&cl)): %s\n",cl.head->next->data);
   */
 }
+static void test_page() {
+  Clist cl;
+  Page page1;
+  page1.number = 1;
+  page1.reference = 0;
+  
+  EXPECT_EQ_INT(page1.number, 1);
+  EXPECT_EQ_INT(page1.reference, 0);
+
+  clist_init(&cl, NULL);
+  clist_ins_next(&cl, NULL, &page1);
+  EXPECT_EQ_INT(clist_size(&cl), 1);
+
+  replace_page(&clist_head(&cl));
+}
+
 
 static void test_parse() {
   test_fact();
@@ -101,6 +116,7 @@ static void test_parse() {
   test_single_list();
   test_duble_list();
   test_clist_list();
+  test_page();
 } 
 
 int main(int argc, char** argv) {
