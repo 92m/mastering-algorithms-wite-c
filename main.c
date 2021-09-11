@@ -54,6 +54,7 @@ static void test_single_list() {
 }
 
 static void test_duble_list() {
+  #if 0
   Dlist dl;
   char *CSR = "dsad";
   int *inum = (int *)520, *inum2 = (int *)510;
@@ -76,6 +77,7 @@ static void test_duble_list() {
    * printf( "p dlist_data : %s\n", (char *)dlist_data(dl.head)); 
    * printf( "p dlist_data : %d\n", (int *)dlist_data(dl.tail)); 
    */
+  #endif
 }
 
 static void test_clist_list() {
@@ -109,6 +111,21 @@ static void test_page() {
   replace_page(&clist_head(&cl));
 }
 
+static void test_stack() {
+  Stack st1;
+  int *inum = (int *)520;
+  EXPECT_EQ_INT(stack_init(&st1, NULL), 0);
+  EXPECT_EQ_INT(stack_push(&st1, inum), 0);
+  EXPECT_EQ_INT(stack_size(&st1), 1);
+}
+
+static void test_queue() {
+  Queue quq;
+  int *inum = (int *)520;
+  EXPECT_EQ_INT(queue_init(&quq, NULL), 0);
+  EXPECT_EQ_INT(queue_enqueue(&quq, inum), 0);
+  EXPECT_EQ_INT(queue_size(&quq), 1);
+}
 
 static void test_parse() {
   test_fact();
@@ -117,6 +134,8 @@ static void test_parse() {
   test_duble_list();
   test_clist_list();
   test_page();
+  test_stack();
+  test_queue();
 } 
 
 int main(int argc, char** argv) {

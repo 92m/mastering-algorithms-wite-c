@@ -39,13 +39,13 @@ int list_ins_next(List *list, ListElmt *element, const void *data);
 int list_rem_next(List *list, ListElmt *element, void **data);
 
 /* 返回链表长度 */
-#define list_size(list) (list->size)
+#define list_size(list) ((list)->size)
 
 /* 返回链表头元素 */
-#define list_head(list) (list->head)
+#define list_head(list) ((list)->head)
 
 /* 返回链表尾元素 */
-#define list_tail(list) (list->tail)
+#define list_tail(list) ((list)->tail)
 
 /* 返回指定节点元素是否链表头元素 */
 #define list_is_head(list, element) ((element) == (list)->head ? 1 : 0)

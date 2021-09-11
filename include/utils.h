@@ -5,6 +5,8 @@
 * 引入单链表头部文件
 */
 #include "list.h"
+#include "stack.h"
+#include "queue.h"
 
 /*
 * 引入双链表头部文件
