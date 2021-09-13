@@ -24,7 +24,7 @@
  ############################################################
  
  # Generate the static library from the library sources
- add_library( utils_mAlgorithms src/utils.c src/list.c src/dlist.c src/clist.c src/page.c src/stack.c src/queue.c)
+ add_library( utils_mAlgorithms src/utils.c src/list.c src/dlist.c src/clist.c src/page.c src/stack.c src/queue.c src/set.c)
 
  target_include_directories( utils_mAlgorithms PUBLIC ${PROJECT_SOURCE_DIR}/include )
 

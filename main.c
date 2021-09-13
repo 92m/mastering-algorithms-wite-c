@@ -27,20 +27,15 @@ static int test_pass = 0;
 #define EXPECT_EQ_INT(expect, actual) EXPECT_EQ_BASE((expect) == (actual), expect, actual, "%d")
 
 static void test_fact() {
-  #if 0
   EXPECT_EQ_INT(6, fact(3));
-  #endif
 }
 
 static void test_facttail() {
-  #if 0
   EXPECT_EQ_INT(6, facttail(3, 1));
-  #endif
 }
 
 
 static void test_single_list() {
-  #if 0
     List l2, *l2p;
     int CINT = 100;
     char *CSR = "dsadadasdada\0";
@@ -50,11 +45,10 @@ static void test_single_list() {
     EXPECT_EQ_INT(list_ins_next(l2p, NULL, &CSR), 0);
     EXPECT_EQ_INT((list_size(l2p)), 2);
     EXPECT_EQ_INT(list_destroy(l2p), 0);
-  #endif
 }
 
 static void test_duble_list() {
-  #if 0
+
   Dlist dl;
   char *CSR = "dsad";
   int *inum = (int *)520, *inum2 = (int *)510;
@@ -77,7 +71,6 @@ static void test_duble_list() {
    * printf( "p dlist_data : %s\n", (char *)dlist_data(dl.head)); 
    * printf( "p dlist_data : %d\n", (int *)dlist_data(dl.tail)); 
    */
-  #endif
 }
 
 static void test_clist_list() {
@@ -127,7 +120,25 @@ static void test_queue() {
   EXPECT_EQ_INT(queue_size(&quq), 1);
 }
 
+int set_match(const void *key1, const void *key2) {
+  if(key1 == key2) 
+    return 1;
+  else 
+    return 0;
+}
+
+static void test_set_list() {
+  Set set;
+  const int *inum = (int *)520;
+  const int *inum2 = (int *)50;
+  EXPECT_EQ_INT(set_init(&set, set_match, NULL), 0);
+  EXPECT_EQ_INT(set_insert(&set, inum), 0);
+  EXPECT_EQ_INT(set_remove(&set, &inum2), -1);
+  EXPECT_EQ_INT(set_size(&set), 1);
+}
+
 static void test_parse() {
+  #if 1
   test_fact();
   test_facttail();
   test_single_list();
@@ -136,6 +147,8 @@ static void test_parse() {
   test_page();
   test_stack();
   test_queue();
+  #endif
+  test_set_list();
 } 
 
 int main(int argc, char** argv) {
