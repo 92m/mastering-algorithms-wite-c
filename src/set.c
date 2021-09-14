@@ -43,7 +43,6 @@ int set_remove(Set *set, void **data) {
 /* 计算并集 */
 int set_union(Set *setu, const Set *set1, const Set *set2) {
   ListElmt *member;
-
   void *data;
 
   /* Initalize the set for the union. */
@@ -77,7 +76,25 @@ int set_union(Set *setu, const Set *set1, const Set *set2) {
   }
   return 0;
 }
+/* 计算交集 */
+int set_intersection(Set *seti, const Set *set1, const Set *set2) {
+  ListElmt *member;
+  void *data;
 
+  /* Initalize the sert for the intersection. */
+  set_init(seti, set1->match, NULL);
+
+  for (member=list_head(set1); member != NULL; member=list_next(member)) {
+    if(set_is_member(set2, list_data(member))) {
+      data = list_data(member);
+      if(list_ins_next(seti, list_tail(seti), data) != 0) {
+        set_destroy(seti);
+        return -1;
+      }
+    }
+  }
+  return 0;
+}
 /* 查找成员 */
 int set_is_member(const Set *set, const void *data) {
   ListElmt *member;
