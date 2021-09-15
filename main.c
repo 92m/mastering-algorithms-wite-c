@@ -127,18 +127,36 @@ int set_match(const void *key1, const void *key2) {
     return 0;
 }
 
+static void foreach_init_set(Set *set, int list[], int len) {
+  int i;
+  for (i = 0; i < len; i++)
+  {
+    set_insert(set, &(list[i]));
+  }
+}
+
 static void test_set_list() {
-  Set set;
+  Set set,set1, set2, setu;
   const int *inum = (int *)520;
-  const int *inum2 = (int *)50;
+  int init1List[10] = { 1, 10, 11, 9, 12, 80, 23, 24, 33, 43 };
+  int init2List[5] = { 1, 2, 3, 4, 5 };
+
+  set_init(&set1, set_match, NULL);
+  set_init(&set2, set_match, NULL);
+
+  foreach_init_set(&set1, init1List, 10);
+  foreach_init_set(&set2, init2List, 5);
+
+  set_union(&setu, (const Set *)&set1, (const Set *)&set2);
+
   EXPECT_EQ_INT(set_init(&set, set_match, NULL), 0);
   EXPECT_EQ_INT(set_insert(&set, inum), 0);
-  EXPECT_EQ_INT(set_remove(&set, &inum2), -1);
-  EXPECT_EQ_INT(set_size(&set), 1);
+  EXPECT_EQ_INT(set_remove(&set, (void *)&inum), 0);
+  EXPECT_EQ_INT(set_size(&set), 0);
 }
 
 static void test_parse() {
-  #if 1
+  #if 0
   test_fact();
   test_facttail();
   test_single_list();
