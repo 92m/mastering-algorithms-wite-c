@@ -55,7 +55,7 @@ int list_ins_next(List *list, ListElmt *element, const void *data) {
     
     /* Handle insertion at the head of the list */
     if (list_size(list) == 0) 
-      list->tail = new_element;
+    list->tail = new_element;
 
     new_element->next = list->head;
     list->head = new_element;
@@ -63,10 +63,10 @@ int list_ins_next(List *list, ListElmt *element, const void *data) {
   } else {
     /* Handle insertion somewhere other than at the head  */
     if (element->next==NULL) 
-      list->tail = new_element;
+    list->tail = new_element;
 
     new_element->next = element->next;
-    list->head = new_element;
+    element->next = new_element;
   }
   /* Ajust the size of the list to accout for insertion element. */
   list->size++;
