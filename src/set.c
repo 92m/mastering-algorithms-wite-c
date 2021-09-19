@@ -95,6 +95,27 @@ int set_intersection(Set *seti, const Set *set1, const Set *set2) {
   }
   return 0;
 }
+/* 计算差集 */
+int set_difference(Set *setd, const Set *set1, const Set *set2) {
+  ListElmt *member;
+  void *data;
+  /* Initialize the set for the difference. */
+  set_init(setd, set1->match, NULL);
+
+  for(member=list_head(set1); member!=NULL;member=list_next(member)) {
+    if(!set_is_member(set2, list_data(member)))
+    {
+      data = list_data(member);
+
+      if(list_ins_next(setd, list_tail(setd), data) != 0) {
+        set_destroy(setd);
+        return -1;
+      }
+    }
+  }
+  return 0;
+}
+
 /* 查找成员 */
 int set_is_member(const Set *set, const void *data) {
   ListElmt *member;
@@ -102,8 +123,39 @@ int set_is_member(const Set *set, const void *data) {
   /* Determine if the data is a member of the set. */
   for (member = list_head(set); member != NULL; member = list_next(member))
   {
-    if(set->match(data, list_data(member)))
+    /*
+     * 原文调用set->match 函数在外部判断成员是否在集合里
+     * if (set->match(data, list_data(member))) {
+     *  return 1;    
+     * }
+     */
+    if(data == list_data(member))
       return 1;
   }
   return 0;
+}
+
+/* 判断是否为指定集合的子集 */
+int set_is_subset(const Set *set1, const Set *set2) {
+  ListElmt *member;
+
+  if(list_size(set1) > list_size(set2)) {
+    return 0;
+  }
+  /* Deftermine if set1 is a subset of set2 */
+  for (member=list_head(set1); member != NULL; member=list_next(member)) {
+    if(!set_is_member(set2, list_data(member)))
+    return 0; 
+  }
+  return 1; 
+}
+
+/* 判断指定集两个集合是否相等 */
+int set_is_equal(const Set *set1, const Set *set2) {
+  /* Do a quick test to rule out some cases.*/
+  if(list_size(set1) != list_size(set2)) {
+    return 0;
+  }
+  /* set of the same size are equal if they are subsets. */
+  return set_is_member(set1, set2);
 }

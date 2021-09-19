@@ -31,7 +31,7 @@ int set_difference(Set *serd, const Set *set1, const Set *set2);
 /* 查找成员 */
 int set_is_member(const Set *set, const void *data);
 
-/* 判断指定集合子集 */
+/* 判断是否为指定集合的子集 */
 int set_is_subset(const Set *set1, const Set *set2);
 
 /* 判断指定集两个集合是否相等 */

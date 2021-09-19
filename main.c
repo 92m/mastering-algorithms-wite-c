@@ -121,25 +121,27 @@ static void test_queue() {
 }
 
 int set_match(const void *key1, const void *key2) {
-  if(key1 == key2) 
+  if(key1 == key2) {
     return 1;
-  else 
+  }
+  else {
     return 0;
+  }
 }
 
-static void foreach_init_set(Set *set, int list[], int len) {
+static void foreach_init_set(Set *set, const int list[], int len) {
   int i;
   for (i = 0; i < len; i++)
   {
-    set_insert(set, &(list[i]));
+    set_insert(set, list[i]);
   }
 }
 
 static void test_set_list() {
-  Set set,set1, set2, setu;
+  Set set,set1, set2, setu, setd;
   const int *inum = (int *)520;
-  int init1List[10] = { 1, 10, 11, 9, 12, 80, 23, 24, 33, 43 };
-  int init2List[5] = { 1, 2, 3, 4, 5 };
+  const int init1List[10] = { 1, 10, 11, 9, 12, 80, 23, 24, 33, 43 };
+  const int init2List[5] = { 1, 2, 3, 4, 5 };
 
   set_init(&set1, set_match, NULL);
   set_init(&set2, set_match, NULL);
@@ -148,6 +150,7 @@ static void test_set_list() {
   foreach_init_set(&set2, init2List, 5);
 
   set_union(&setu, (const Set *)&set1, (const Set *)&set2);
+  set_difference(&setd, (const Set *)&set1, (const Set *)&set2);
 
   EXPECT_EQ_INT(set_init(&set, set_match, NULL), 0);
   EXPECT_EQ_INT(set_insert(&set, inum), 0);
