@@ -8,6 +8,7 @@
 #include "stack.h"
 #include "queue.h"
 #include "set.h"
+#include "chtbl.h"
 
 /*
 * 引入双链表头部文件

@@ -1,7 +1,4 @@
 #include "utils.h"
-#include "list.h"
-#include "dlist.h"
-#include "clist.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -52,4 +49,32 @@ int facttail(int n, int a) {
     return a;
   else if (n > 1) 
     return facttail(n-1, n*a);
+}
+
+/* hashpjw.h */
+
+unsigned int hashpjw(const void *key) {
+  const char *ptr;
+  unsigned int val;
+
+  /* Hash the key by performiing a number of bit opration on it */
+  val = 0;
+  ptr = key;
+
+  while (*ptr != '\0')
+  {
+    unsigned int tmp;
+    val = (val << 4) + (*ptr);
+
+    if ((tmp = (val & 0xf0000000))) 
+    {
+      val = val ^ (tmp >> 24);
+      val = val ^ tmp;
+    }
+    ptr++;
+  }
+
+  /* In practice , replace PRIME_TBLSIZ with the actual table size */
+  
+  return val % 100;
 }
