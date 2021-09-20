@@ -99,7 +99,7 @@ static void test_page() {
 
   clist_init(&cl, NULL);
   clist_ins_next(&cl, NULL, &page1);
-  EXPECT_EQ_INT(clist_size(&cl), 1);
+  EXPECT_EQ_INT(clist_size(&cl), 1); 
 
   replace_page(&clist_head(&cl));
 }
