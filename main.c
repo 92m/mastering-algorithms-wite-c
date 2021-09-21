@@ -158,6 +158,24 @@ static void test_set_list() {
   EXPECT_EQ_INT(set_size(&set), 0);
 }
 
+static int chtbl_h (const void *key) {
+  return 0;
+}
+
+static int chtbl_m (const void *key1, const void *key2) {
+  return 0;
+}
+
+static void chtbl_d (void *data) {
+
+}
+
+static void test_chtbl_list() {
+  CHTbl chtbl0;
+  int buckets = 5;
+  chtbl_init(&chtbl0, buckets, chtbl_h, chtbl_m, chtbl_d);
+}
+
 static void test_parse() {
   #if 0
   test_fact();
@@ -168,12 +186,14 @@ static void test_parse() {
   test_page();
   test_stack();
   test_queue();
-  #endif
   test_set_list();
+  #endif
+  test_chtbl_list();
 } 
 
 int main(int argc, char** argv) {
   test_parse();
+  
   printf("%d/%d (%3.2f%%) passed\n", test_pass, test_count, test_pass * 100.0 / test_count);
   return main_ret;
 }
