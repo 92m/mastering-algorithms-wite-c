@@ -173,7 +173,7 @@ static void chtbl_d (void *data) {
 static void test_chtbl_list() {
   CHTbl chtbl0;
   int buckets = 5;
-  chtbl_init(&chtbl0, buckets, chtbl_h, chtbl_m, chtbl_d);
+  chtbl_init(&chtbl0, buckets, hashpjw, chtbl_m, chtbl_d);
 }
 
 static void test_parse() {
@@ -193,7 +193,7 @@ static void test_parse() {
 
 int main(int argc, char** argv) {
   test_parse();
-  
+
   printf("%d/%d (%3.2f%%) passed\n", test_pass, test_count, test_pass * 100.0 / test_count);
   return main_ret;
 }

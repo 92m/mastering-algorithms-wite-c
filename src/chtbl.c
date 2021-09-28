@@ -47,10 +47,78 @@ int chtbl_destroy(CHTbl *htbl) {
   /* Destroy each bucket.*/
   for (i = 0; i < htbl->buckets; i++)
   {
-    list_destroy(htbl->table[i]); 
+    list_destroy(&htbl->table[i]); 
   }
   /* Free the storage allocated for now, but clear the structure as a precaution */
   memset(htbl, 0, sizeof(CHTbl));
 
   return 0;
+}
+
+/* 向指定哈希表插入元素 */
+int chtbl_insert(CHTbl *htbl, const void *data) {
+  void *temp;
+  int  bucket, retval;
+
+  /* Do nothing if the data is already in the table. */
+  temp = (void *)data;
+  if(chtbl_lookup(htbl, &temp) ==0) {
+    return -1;
+  }
+
+  /* Hash the key */
+  bucket = htbl->h(data) % htbl->buckets;
+  if((retval=list_ins_next(&htbl->table[bucket], NULL, data)) == 0)
+    htbl->size++;
+
+  return retval; 
+}
+
+/* 在指定哈希表移除元素 */
+int chtbl_remove(CHTbl *htbl, void **data) {
+  ListElmt *element, *prev;
+  int       bucket;
+
+  /* Hash the key. */
+  bucket = htbl->h(*data) % htbl->buckets;
+
+  /* Seach for the data in the bucket */
+  prev = NULL;
+
+  for(element=list_head(&htbl->table[bucket]); element != NULL; element=list_next(element)) {
+    if(htbl->match(*data, list_data(element))) {
+      /* Remove the data from the bucket. */
+      if(list_rem_next(&htbl->table[bucket], prev, data) == 0) {
+        htbl->size--;
+        return 0;
+      }
+      else
+      {
+        return -1;
+      }
+    }
+    prev = element;
+  }
+  /* Reture that the data was not found */
+  return -1;
+}
+
+/* 在指定哈希查找元素 */
+int chtbl_lookup(CHTbl *htbl, void **data) {
+  ListElmt *element;
+  int      bucket;
+
+  /* Hash the key. */
+  bucket = htbl->h(*data) % htbl->buckets;
+
+  /* Search for the data in the bucket. */
+  for(element=list_head(&htbl->table[bucket]); element != NULL; element=list_next(element)) {
+    if(htbl->match(*data, list_data(element))) {
+      /* Pass back the from the table. */
+      *data = list_data(element);
+      return 0;
+    }
+  }
+  /* Reuturn back the data from the table. */
+  return -1;
 }

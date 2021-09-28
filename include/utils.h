@@ -40,4 +40,6 @@ int swap2(void *x, void *y, int size);
 
 void test_single_list_init_for_utils();
 
+unsigned int hashpjw(const void *key);
+
 #endif /* MALGORITHMS_H__ */
