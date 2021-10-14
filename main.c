@@ -176,6 +176,18 @@ static void test_chtbl_list() {
   chtbl_init(&chtbl0, buckets, hashpjw, chtbl_m, chtbl_d);
 }
 
+void test_tree_destroy(void *data) {
+  data = NULL;
+}
+
+static void test_bitree() {
+  BiTree bitree1;
+  const int inum = 1;
+  bitree_init(&bitree1, &test_tree_destroy);
+  bitree_ins_left(&bitree1, NULL, &inum);
+  
+}
+
 static void test_parse() {
   #if 0
   test_fact();
@@ -187,13 +199,15 @@ static void test_parse() {
   test_stack();
   test_queue();
   test_set_list();
-  #endif
   test_chtbl_list();
+  #endif
+  test_bitree();
 } 
 
 int main(int argc, char** argv) {
   test_parse();
 
   printf("%d/%d (%3.2f%%) passed\n", test_pass, test_count, test_pass * 100.0 / test_count);
+
   return main_ret;
 }

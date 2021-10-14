@@ -35,6 +35,8 @@
   src/set.c 
   src/chtbl.c
   src/ohtbl.c
+  src/bitree.c
+  src/traverse.c
 )
 
  target_include_directories( utils_mAlgorithms PUBLIC ${PROJECT_SOURCE_DIR}/include )

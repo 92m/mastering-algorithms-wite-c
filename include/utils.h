@@ -21,6 +21,12 @@
 #include "clist.h"
 #include "page.h"
 
+/*
+* 引入循环链表头部文件
+*/
+
+#include "bitree.h"
+
 /* 全局状态变量 */  
 enum {
   COMPUTE_OK = 0,
