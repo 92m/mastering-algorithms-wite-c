@@ -26,6 +26,7 @@
 */
 
 #include "bitree.h"
+#include "bistree.h"
 
 /* 全局状态变量 */  
 enum {

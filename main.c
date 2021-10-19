@@ -201,6 +201,7 @@ static void test_parse() {
   test_set_list();
   test_chtbl_list();
   #endif
+  test_set_list();
   test_bitree();
 } 
 

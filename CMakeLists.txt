@@ -36,6 +36,7 @@
   src/chtbl.c
   src/ohtbl.c
   src/bitree.c
+  src/bistree.c
   src/traverse.c
 )
 
