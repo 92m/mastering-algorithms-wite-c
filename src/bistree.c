@@ -3,6 +3,7 @@
 #include <string.h>
 #include "bistree.h"
 
+static void destroy_right(BisTree *tree, BiTreeNode *node);
 
 /* rotate_left */
 static void rotate_left(BiTreeNode **node)
@@ -95,5 +96,81 @@ static void rotate_right(BiTreeNode **node)
     ((AvlNode *)bitree_data(grandchild))->factor = AVL_BALANCED;
     *node = grandchild;
   }
+  return;
+}
+
+/* destroy_left */
+static void destroy_left(BisTree *tree, BiTreeNode *node) 
+{
+  BiTreeNode **position;
+
+  /* Do not allow destruction of an empty tree */
+  if(bitree_size(tree) == 0)
+    return;
+
+  /* Determine where to destroy nodes. */
+  if(node == NULL)
+    position = &tree->root; 
+  else
+    position = &node->left;
+  
+  /* Destroy the nodes. */
+  if (*position != NULL) 
+  {
+    destroy_left(tree, *position);
+    destroy_right(tree, *position);
+
+    if (tree->destroy != NULL) 
+    {
+      /* Call a user->defined function to free dynamically allocated data. */
+      tree->destroy(((AvlNode *)(*position)->data)->data);
+    }
+
+    /* Free the AVL data in the node, then free the node itself. */
+    free((*position)->data);
+    free(*position);
+    *position =NULL;
+
+    /* Adjust the size of the tree to account for the destroyed node. */
+    tree->size--;
+  }
+  return;
+}
+
+static void destroy_right(BisTree *tree, BiTreeNode *node) 
+{
+  BiTreeNode **position;
+
+  /* Do not allow destruction of an empty three. */
+  if(bitree_size(tree) == 0)
+    return;
+  
+  /* Determine where to destroy nodes. */
+  if(node == NULL)
+    position = &tree->root; 
+  else
+    position = &node->right;
+  
+    /* Destroy the nodes. */
+  if (*position != NULL) 
+  {
+    destroy_left(tree, *position);
+    destroy_right(tree, *position);
+
+    if(tree->destroy != NULL) 
+    {
+      /* Call a user->defined function to free dynamically allocated data. */
+      tree->destroy(((AvlNode *)(*position)->data)->data);
+    }
+
+    /* Free the AVL data in the node, then free the node itself. */
+    free((*position)->data);
+    free(*position);
+    *position =NULL;
+
+    /* Adjust the size of the tree to account for the destroyed node. */
+    tree->size--;
+  }
+  
   return;
 }
